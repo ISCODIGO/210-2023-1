@@ -5,8 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-
-<BorderPane xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tresillo.HelloController">
+<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tresillo.HelloController">
    <center>
       <GridPane hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="311.0" prefWidth="427.0" vgap="10.0">
         <columnConstraints>
@@ -60,7 +59,7 @@
                   <Font size="40.0" />
                </font>
             </Button>
-            <Button id="2,2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onButtonClick" text="." GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <Button id="2,2" mnemonicParsing="false" onAction="#onButtonClick" prefHeight="95.0" prefWidth="135.0" text="." GridPane.columnIndex="2" GridPane.rowIndex="2">
                <font>
                   <Font size="40.0" />
                </font>
@@ -76,7 +75,7 @@
                   <Font size="14.0" />
                </font>
                <graphic>
-                  <Button mnemonicParsing="false" text="Button" />
+                  <Button mnemonicParsing="false" onAction="#onButtonClearClick" text="Reiniciar" />
                </graphic>
             </Label>
          </children>
