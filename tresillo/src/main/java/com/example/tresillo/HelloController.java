@@ -12,12 +12,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
+
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.ResourceBundle;
 
 public class HelloController implements Initializable {
+
+    /**
+     * Atributo para indicar que cuando hayan 9 marcas es porque hubo empate
+     */
+    private int contadorDeMarcas = 0;
 
     /**
      * Atributo para indicar que figura se escribe: si es true sera Equis y false Cero.
@@ -83,6 +89,22 @@ public class HelloController implements Initializable {
         }
     }
 
+    private void setGanadorDiagonal() {
+        if(esValido(tablero[0][0])
+            && tablero[0][0].equals(tablero[1][1])
+            && tablero[0][0].equals(tablero[2][2])) {
+            setEstadoGanador(tablero[0][0]);
+        }
+    }
+
+    private void setGanadorContraDiagonal() {
+        if(esValido(tablero[0][2])
+                && tablero[0][2].equals(tablero[1][1])
+                && tablero[0][2].equals(tablero[2][0])) {
+            setEstadoGanador(tablero[0][2]);
+        }
+    }
+
     /**
      * Detecta si hay un ganador en el juego modificando el estado PENDIENTE
      */
@@ -93,7 +115,12 @@ public class HelloController implements Initializable {
         }
 
         // TODO: Detectar cuando se gana en diagonal
+        // FIXED
+        if (estado.equals(Estado.PENDIENTE)) setGanadorDiagonal();
+        if (estado.equals(Estado.PENDIENTE)) setGanadorContraDiagonal();
         // TODO: Detectar un empate
+        // FIXED
+        if (contadorDeMarcas == 9) estado = Estado.EMPATE;
     }
 
     /**
@@ -131,12 +158,14 @@ public class HelloController implements Initializable {
             btn.setText("0");
         }
 
+        contadorDeMarcas++;
         escribirX = !escribirX;  // ocurre un switch para intercambiar la figura
         btn.setDisable(true);  // desactiva el Button para evitar que se haga clic de nuevo
         setTablero(btn.getId(), btn.getText());  // modifica el tablero segun el boton y figura
         setEstado();  // intenta modificar el estado del juego (saber si ha concluido o no)
         info.setText("Estado: " + estado);
     }
+
 
     /**
      * Evento que ocurre al arrancar la vista
@@ -151,9 +180,10 @@ public class HelloController implements Initializable {
         // sortear que figura inicia
         Random random = new Random();
         escribirX = random.nextInt(0, 2) == 1;  // si es true inicia con X, false inicia con 0
-        info.setText("Inicia... " + (escribirX ? "X" : "0"));
+        info.setText("Inicia Jugador:  " + (escribirX ? "X" : "0"));
     }
 
+    @FXML
     public void onButtonClearClick() {
         // TODO: Establecer el evento para reiniciar el juego
     }
